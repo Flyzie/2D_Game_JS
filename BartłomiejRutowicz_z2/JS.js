@@ -1,3 +1,6 @@
+import fs from 'fs';
+
+
 const canvas = document.getElementById("main_canvas");
 const canvas_b = document.getElementById("background_canvas");
 const cty = canvas.getContext("2d");
@@ -13,38 +16,44 @@ let vy = 0;
 let xo = 0;
 let yo = 0;
 
-const tileW = 200;
-const tileH = 100;
+const tileW = 50;
+const tileH = 50;
 
 const gridCols = 9;
 const gridRows = 9;
 const map = [
-    "|","|","|","|","|","|","|","|","|",
-    "|","|","|","|","|","|","|","|","|",
-    ".",".",".",".",".",".",".",".",".",
-    ".",".",".",".",".",".",".",".",".",
-    "/","/","/","/","/","/","/","/","/",
-    "/","/","/","/","/","/","/","/","/",
+    ["|","|","|","|","|","|","|","|","|"],
+    ["|","|","|","|","|","|","|","|","|"],
+    [".",".",".",".",".",".",".",".","."],
+    [".",".",".",".",".",".",".",".","."],
+    ["/","/","/","/","/","/","/","/","/"],
+    ["/","/","/","/","/","/","/","/","/"]
 ]
 
-function drawMap(){
-    for(let eachRow = 0; eachRow < gridRows; eachRow++){
-        for(let eachCol = 0; eachCol < gridCols; eachCol++){
-            let arrayIndex = eachRow * gridRows + eachCol;
-
-            if(map[arrayIndex] === "|"){
+function drawMap(array){
+    let colPos = 0;
+    for (let i = 0; i < array.length; i++){
+       // let arrayElement = array[i];
+        let rowPos = 0;
+        for(let j =0; j < array[i].length; j++){
+            if (array[i][j] === "|"){
                 cty.fillStyle = "rgba(153, 153, 102)"
-                cty.fillRect(tileW*eachCol, tileH * eachRow, tileW, tileH)
+                cty.fillRect(rowPos, colPos, tileW, tileH)
 
-            }else if(map[arrayIndex] === "."){
+            }else if (array[i][j] === "."){
                 cty.fillStyle = "yellow"
-                cty.fillRect(tileW * eachCol, tileH * eachRow, tileW, tileH)
-            }else{
+                cty.fillRect(rowPos, colPos, tileW, tileH)
+
+            }else if (array[i][j] === "/"){
                 cty.fillStyle = "red"
-                cty.fillRect(tileW * eachCol, tileH * eachRow, tileW, tileH)
+                cty.fillRect(rowPos, colPos, tileW, tileH)
             }
+            rowPos += 50;
         }
+        rowPos = 0;
+        colPos += 50;
     }
+
 }
 
 function updateAnimation(){
@@ -54,7 +63,7 @@ function updateAnimation(){
     y += vy;
     
     
-    drawMap();
+    drawMap(map);
     ctx.fillStyle = "green";
     ctx.fillRect(x, y, 50, 50); // kwadrat o wymiarach 50x50px stworzony w punkcie 0,0
 
