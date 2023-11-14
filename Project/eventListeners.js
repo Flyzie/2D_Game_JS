@@ -2,15 +2,6 @@ addEventListener("keydown", function(event){
     console.log(event.code);
 })
 
-addEventListener("mousemove", function(event){
-    console.log(event.code);
-})
-
-addEventListener("mousemove", function(event){
-    xo = event.clientX;
-    yo = event.clientY;
-})
-
 addEventListener("keydown", function(event){
     if(event.code == "KeyD") 
         vxr = 10;

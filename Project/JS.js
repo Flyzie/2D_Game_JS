@@ -10,14 +10,13 @@ let vxr = 0;
 let vx = 0;
 let vy = 0;
 
-let xo = 0;
-let yo = 0;
 
 const tileW = 50;
 const tileH = 50;
 
-const gridCols = 9;
-const gridRows = 9;
+const canvasWidth = 2040;
+const canvasHeight = 1080;
+
 const map = [
     ["|","|","|","|","|","|","|","|","|"],
     ["|","|","|","|","|","|","|","|","|"],
@@ -35,6 +34,9 @@ stars_tx.src = "stars.png";
 
 const stone_tx = new Image();
 stone_tx.src = "stone.png";
+
+const player_tx = new Image();
+player_tx.src = "MILfin.png"
 
 
 function readMapFromFile(fileInput) {
@@ -63,6 +65,18 @@ function readMapFromFile(fileInput) {
     }
 }
 
+
+function cameraControll(){
+    window.scrollTo({
+        left: x,
+        behavior: "auto",
+    });
+    if(x > canvasWidth){
+        x = 0;
+    }else if (x < 0){
+        x = canvasWidth;
+    }
+}
 
 
 function drawMap(array){
@@ -93,16 +107,9 @@ function updateAnimation(){
     x += vxr;
     y += vy;
     
-    
+    cameraControll();
     drawMap(map);
-    ctx.fillStyle = "green";
-    ctx.fillRect(x, y, 50, 50); // kwadrat o wymiarach 50x50px stworzony w punkcie 0,0
-
-    ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; //ostatnie to poziom przezroczystosci
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(xo, yo, 50, 0, 2 * Math.PI);
-    ctx.stroke();
+    ctx.drawImage(player_tx, x, y, 50, 50);
     
     requestAnimationFrame(updateAnimation);
 }
