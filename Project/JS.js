@@ -17,6 +17,10 @@ const tileH = 50;
 const canvasWidth = 2040;
 const canvasHeight = 1080;
 
+const cameraSpeed = 5;
+const cameraMargin = 200;
+
+
 const map = [
     ["|","|","|","|","|","|","|","|","|"],
     ["|","|","|","|","|","|","|","|","|"],
@@ -67,14 +71,13 @@ function readMapFromFile(fileInput) {
 
 
 function cameraControll(){
-    window.scrollTo({
-        left: x,
-        behavior: "auto",
-    });
-    if(x > canvasWidth){
-        x = 0;
-    }else if (x < 0){
-        x = canvasWidth;
+
+    // Move the camera when player approaches the edge of the canvas
+    if (x < cameraMargin || x > canvasWidth - cameraMargin || y < cameraMargin || y > canvasHeight - cameraMargin) {
+    const camX = Math.max(0, Math.min(x - canvas.width / 2, canvas.width * map[0].length - canvas.width));
+    const camY = Math.max(0, Math.min(y - canvas.height / 2, canvas.height * map.length - canvas.height));
+
+    cty.setTransform(1, 0, 0, 1, -camX, -camY);
     }
 }
 
