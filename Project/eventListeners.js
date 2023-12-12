@@ -12,22 +12,22 @@ addEventListener("keydown", function(event){
 addEventListener("keyup", function(event){
     if(event.code == "KeyD") 
         vxr_1 = 0;
-        else if(event.code == "ArrowRight")
+    else if(event.code == "ArrowRight")
         vxr_2 = 0;
 })
 
 addEventListener("keydown", function(event){
     if(event.code == "KeyW") 
-        vy_1 = -10;
+        vyu_1 = -10;
     else if(event.code == "ArrowUp")
-        vy_2 = -10;
+        vyu_2 = -10;
 })
 
 addEventListener("keyup", function(event){
     if(event.code == "KeyW") 
-        vy_1 = 0;
+        vyu_1 = 0;
     else if(event.code == "ArrowUp")
-        vy_2 = 0;
+        vyu_2 = 0;
 })
 
 addEventListener("keydown", function(event){
@@ -46,14 +46,14 @@ addEventListener("keyup", function(event){
 
 addEventListener("keydown", function(event){
     if(event.code == "KeyS") 
-        vy_1 = 10;
+        vyd_1 = 10;
     else if(event.code == "ArrowDown")
-        vy_2 = 10;
+        vyd_2 = 10;
 })
 
 addEventListener("keyup", function(event){
     if(event.code == "KeyS") 
-        vy_1 = 0;
+        vyd_1 = 0;
     else if(event.code == "ArrowDown")
-        vy_2 = 0;
+        vyd_2 = 0;
 })

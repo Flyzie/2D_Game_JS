@@ -3,18 +3,22 @@ const canvas_b = document.getElementById("background_canvas");
 const cty = canvas.getContext("2d");
 const ctx = canvas.getContext("2d"); //jakiego rodzaju plansze generujemy
 
-let x_1 = 0;
-let y_1 = 0;
+let x_1 = 850;
+let y_1 = 300;
 let vxl_1 = 0;
 let vxr_1 = 0;
 let vx_1 = 0;
+let vyu_1 = 0;
+let vyd_1 = 0;
 let vy_1 = 0;
 
-let x_2 = 0;
-let y_2 = 0;
+let x_2 =800;
+let y_2 = 300;
 let vxl_2 = 0;
 let vxr_2 = 0;
 let vx_2 = 0;
+let vyu_2 = 0;
+let vyd_2 = 0;
 let vy_2 = 0;
 
 
@@ -49,7 +53,7 @@ function updateAnimation() {
   const distanceBetweenPlayers = Math.sqrt((x_2 - x_1) ** 2 + (y_2 - y_1) ** 2);
 
   // Calculate the scale factor based on the distance (adjust the scaling factor as needed)
-  const scaleFactor = 1 / (1 + distanceBetweenPlayers * 0.0011);
+  const scaleFactor = 1 / (1 + distanceBetweenPlayers * 0.0004);
 
   // Save the current transformation matrix
   ctx.save();
@@ -65,21 +69,35 @@ function updateAnimation() {
 
   cty.drawImage(map_tx, -2000, -2000, 6000, 4000);
 
-  y_1 += vy_1;
-  x_2 += vxr_2;
-  y_2 += vy_2;
+ 
 
-  if (x_1 != 1000) {
+  if (y_1 != 700){
+    y_1 += vyd_1;
+  }
+
+  if (y_1 != 0){
+    y_1 += vyu_1;
+  }
+
+  if (y_2 != 700) {
+    y_2 += vyd_2;
+  }
+
+  if (y_2 != 0){
+    y_2 += vyu_2;
+  }
+
+  if (x_1 != 1750) {
     x_1 += vxr_1;
   }
-  if (x_1 != -500) {
+  if (x_1 != 0) {
     x_1 += vxl_1;
   }
 
-  if (x_2 != 1000) {
+  if (x_2 != 1750) {
     x_2 += vxr_2;
   }
-  if (x_2 != -500) {
+  if (x_2 != 0) {
     x_2 += vxl_2;
   }
 
