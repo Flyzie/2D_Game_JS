@@ -1,1 +1,12 @@
 html, body {margin: 0; height: 100%; overflow: hidden}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas{
+    border: 1px solid #9C9898;
+    position:absolute;
+}

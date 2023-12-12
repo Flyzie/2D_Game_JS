@@ -46,52 +46,54 @@ function updateAnimation() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Draw the background map at the adjusted camera 
-  
   const distanceBetweenPlayers = Math.sqrt((x_2 - x_1) ** 2 + (y_2 - y_1) ** 2);
 
   // Calculate the scale factor based on the distance (adjust the scaling factor as needed)
   const scaleFactor = 1 / (1 + distanceBetweenPlayers * 0.0011);
 
+  // Save the current transformation matrix
+  ctx.save();
 
-  if(distanceBetweenPlayers < 2000){
-  ctx.scale(scaleFactor / previousScaleFactor, scaleFactor / previousScaleFactor);
-  }
+  // Translate to the center of the canvas
+  ctx.translate(canvas.width / 2, canvas.height / 2);
 
-  cty.drawImage(map_tx, 0, 0, 6000, 4000);
+  // Apply scaling factor
+  ctx.scale(scaleFactor, scaleFactor);
 
-  
- // x_1 += vxr_1;
+  // Translate back to the original position
+  ctx.translate(-canvas.width / 2, -canvas.height / 2);
+
+  cty.drawImage(map_tx, -2000, -2000, 6000, 4000);
+
   y_1 += vy_1;
-
-  
   x_2 += vxr_2;
   y_2 += vy_2;
 
-  if (x_1 != 5700){
+  if (x_1 != 1000) {
     x_1 += vxr_1;
-  } 
-  if(x_1 != 0){
+  }
+  if (x_1 != -500) {
     x_1 += vxl_1;
   }
 
-  if (x_2 != 5700){
+  if (x_2 != 1000) {
     x_2 += vxr_2;
   }
-  if(x_2 !=0){
+  if (x_2 != -500) {
     x_2 += vxl_2;
   }
-
-
 
   // Draw players at their adjusted positions based on the camera
   ctx.drawImage(player2_tx, x_2, y_2, 50, 50);
   ctx.drawImage(player1_tx, x_1, y_1, 50, 50);
+
+  // Restore the previous transformation matrix
+  ctx.restore();
 
   // Update the camera position
   previousScaleFactor = scaleFactor;
 
   requestAnimationFrame(updateAnimation);
 }
-
 
 updateAnimation();
