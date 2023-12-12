@@ -21,6 +21,9 @@ let vyu_2 = 0;
 let vyd_2 = 0;
 let vy_2 = 0;
 
+const cx = 850;
+const cy = 300;
+
 
 const tileW = 50;
 const tileH = 50;
@@ -46,26 +49,52 @@ player2_tx.src = "stone.png"
 
 let previousScaleFactor = 1;
 
+let hasScaled = false;
+
+function distanceFromCenter(distance1, distance2){
+  let arr = [distance1, distance2];
+  return Math.max(...arr);
+}
+
 function updateAnimation() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const distanceFromCenterP1 = Math.sqrt((x_1 - cx) ** 2 + (y_1 - cy) ** 2);
+  const distanceFromCenterP2 = Math.sqrt((x_2 - cx) ** 2 + (y_2 - cy) ** 2);
+  
+  let distanceFromC = distanceFromCenter(distanceFromCenterP1, distanceFromCenterP2);
 
   // Draw the background map at the adjusted camera 
   const distanceBetweenPlayers = Math.sqrt((x_2 - x_1) ** 2 + (y_2 - y_1) ** 2);
 
   // Calculate the scale factor based on the distance (adjust the scaling factor as needed)
-  const scaleFactor = 1 / (1 + distanceBetweenPlayers * 0.0004);
+  if (!hasScaled && distanceFromC < 1800) {
+    scaleFactor = 1 / (1 + distanceFromC * 0.0004);
+  } else {
+    // Set a flag to indicate that scaling has occurred
+    hasScaled = true;
+  }
+
+  if(hasScaled == true && distanceFromC < 1800){
+    scaleFactor = 1 / (1 + distanceFromC * 0.0004)
+  }
+
+  
 
   // Save the current transformation matrix
+  
   ctx.save();
-
   // Translate to the center of the canvas
   ctx.translate(canvas.width / 2, canvas.height / 2);
 
   // Apply scaling factor
+  
   ctx.scale(scaleFactor, scaleFactor);
 
   // Translate back to the original position
+ 
   ctx.translate(-canvas.width / 2, -canvas.height / 2);
+  
 
   cty.drawImage(map_tx, -2000, -2000, 6000, 4000);
 
@@ -87,17 +116,17 @@ function updateAnimation() {
     y_2 += vyu_2;
   }
 
-  if (x_1 != 1750) {
+  if (x_1 != canvas.width + 300) {
     x_1 += vxr_1;
   }
-  if (x_1 != 0) {
+  if (x_1 != -300) {
     x_1 += vxl_1;
   }
 
-  if (x_2 != 1750) {
+  if (x_2 != canvas.width + 300) {
     x_2 += vxr_2;
   }
-  if (x_2 != 0) {
+  if (x_2 != -300) {
     x_2 += vxl_2;
   }
 
