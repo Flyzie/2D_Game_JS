@@ -1,4 +1,4 @@
-html, body {margin: 0; height: 100%; overflow: hidden}
+html, body {margin: 0; height: 100%; overflow: hidden; background-color: rgb(77, 77, 77);}
 
 body{
     display: flex;
@@ -6,7 +6,12 @@ body{
     align-items: center;
 }
 
+input{
+    position: absolute;
+    left: 8rem;
+    top: 8rem;
+}
+
 canvas{
     border: 1px solid #9C9898;
-    position:absolute;
 }

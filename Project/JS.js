@@ -25,8 +25,8 @@ const cx = 850;
 const cy = 300;
 
 
-const tileW = 50;
-const tileH = 50;
+const tileW = 75;
+const tileH = 75;
 
 const canvasWidth = 1800;
 const canvasHeight = 1080;
@@ -37,6 +37,73 @@ const cameraMargin = 200;
 
 
 
+const gridCols = 9;
+const gridRows = 9;
+const map = [
+    ["|","|","|","|","|","|","|","|","|"],
+    ["|","|","|","|","|","|","|","|","|"],
+    [".",".",".",".",".",".",".",".","."],
+    [".",".",".",".",".",".",".",".","."],
+    ["/","/","/","/","/","/","/","/","/"],
+    ["/","/","/","/","/","/","/","/","/"]
+]
+
+const wood_tx = new Image();
+wood_tx.src = "wood.png";
+
+const stars_tx = new Image();
+stars_tx.src = "stars.png";
+
+const stone_tx = new Image();
+stone_tx.src = "stone.png";
+
+
+function readMapFromFile(fileInput) {
+    const file = fileInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const content = e.target.result;
+            const rows = content.split('\n');
+            const newArray = [];
+
+            for (let i = 0; i < rows.length; i++) {
+                newArray.push(rows[i].trim().split(''));
+            }
+
+            // Update the map array
+            map.length = 0;
+            map.push(...newArray);
+        };
+
+        reader.readAsText(file);
+    } else {
+        console.error('No file selected');
+    }
+}
+
+
+
+function drawMap(array){
+    let colPos = -225;
+    for (let i = 0; i < array.length; i++){
+       // let arrayElement = array[i];
+        let rowPos = -500;
+        for(let j =0; j < array[i].length; j++){
+            if (array[i][j] === "."){
+                cty.drawImage(wood_tx, rowPos, colPos, tileW, tileH)
+            }else if (array[i][j] === "/"){
+                cty.drawImage(stone_tx, rowPos, colPos, tileW, tileH)
+            }
+            rowPos += tileH;
+        }
+        rowPos = 0;
+        colPos += tileH;
+    }
+
+}
 
 const map_tx = new Image();
 map_tx.src = "map.jpg"
@@ -64,14 +131,11 @@ function updateAnimation() {
   
   let distanceFromC = distanceFromCenter(distanceFromCenterP1, distanceFromCenterP2);
 
-  // Draw the background map at the adjusted camera 
-  const distanceBetweenPlayers = Math.sqrt((x_2 - x_1) ** 2 + (y_2 - y_1) ** 2);
 
-  // Calculate the scale factor based on the distance (adjust the scaling factor as needed)
   if (!hasScaled && distanceFromC < 1800) {
     scaleFactor = 1 / (1 + distanceFromC * 0.0004);
   } else {
-    // Set a flag to indicate that scaling has occurred
+
     hasScaled = true;
   }
 
@@ -82,7 +146,6 @@ function updateAnimation() {
   
 
   // Save the current transformation matrix
-  
   ctx.save();
   // Translate to the center of the canvas
   ctx.translate(canvas.width / 2, canvas.height / 2);
@@ -97,6 +160,7 @@ function updateAnimation() {
   
 
   cty.drawImage(map_tx, -2000, -2000, 6000, 4000);
+  drawMap(map);
 
  
 

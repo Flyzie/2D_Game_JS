@@ -1,3 +1,5 @@
+const main = require('./JS')
+
 addEventListener("keydown", function(event){
     console.log(event.code);
 })
