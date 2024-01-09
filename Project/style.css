@@ -6,6 +6,14 @@ body{
     align-items: center;
 }
 
+li, a, button, h1, label{
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
+    text-decoration: none;
+}
+
 input{
     position: absolute;
     left: 8rem;
@@ -15,3 +23,23 @@ input{
 canvas{
     border: 1px solid #9C9898;
 }
+
+dialog{
+    opacity: 0;
+    transition:
+    opacity 1.7s ease-out,
+    transform 1.7s ease-out,
+    overlay 1.7s ease-out allow-discrete,
+    display 1.7s ease-out allow-discrete;
+  /* Equivalent to
+  transition: all 0.7s allow-discrete; */
+    background-color: rgb(238, 92, 111);
+    border-style: solid;
+    border-color: rgb(95, 19, 42);
+    border-width: 10px;
+    border-radius: 20px;
+}
+
+dialog[open] {
+    opacity: 1;
+  }

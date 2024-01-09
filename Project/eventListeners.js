@@ -1,4 +1,7 @@
-const main = require('./JS')
+closeBtn.addEventListener('click', ()=>{
+    dialog.close();
+})
+
 
 addEventListener("keydown", function(event){
     console.log(event.code);

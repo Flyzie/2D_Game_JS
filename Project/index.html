@@ -5,12 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
 </head>
 <body>
-    <canvas id="main_canvas" height="800" width ="1800">  </canvas>
-   
     
+    <input type="file" id="fileInput" onchange="readMapFromFile(this)">
+    <canvas id="main_canvas" height="800" width ="1800">  </canvas>
+    <dialog> 
+        <h1> !!!!!! YOU WON !!!!!!!</h1>
+        <button> restart level </button>
+    </dialog>
 </body>
 
 
