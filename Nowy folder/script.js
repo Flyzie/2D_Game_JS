@@ -6,6 +6,49 @@ const CANVAS_HEIGHT = canvas.height = 700;
 
 let gameSpeed = 5;
 
+let keys = {};
+
+class Player{
+    constructor(sprite, speed) {
+        this.x = CANVAS_WIDTH / 2;
+        this.y = 500;
+        this.width = 100;
+        this.height = 100;
+        this.speed = speed * gameSpeed;
+        this.sprite = sprite;
+        this.isRotated = false;
+    }
+    update() {
+        gameSpeed = 0;
+        if (keys['KeyA']) {
+            this.x -= this.speed;
+            this.isRotated = true;
+            gameSpeed = -slider.value;
+        }
+        if (keys['KeyD']) {
+            this.x += this.speed;
+            this.isRotated = false;
+            gameSpeed = slider.value;
+        }
+        if (this.x < -this.width) {
+            this.x = CANVAS_WIDTH;
+        }
+        if (this.x > CANVAS_WIDTH) {
+            this.x = -this.width;
+        }
+    }
+    draw() {
+        ctx.save();
+        if (this.isRotated) {
+            ctx.scale(-1, 1);
+            ctx.drawImage(this.sprite, -this.x - this.width, this.y, this.width, this.height);
+        } else {
+            ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
+        }
+        ctx.restore();
+    }
+}
+
 class Layer {
     constructor(image, speedModifier) {
         this.x = 0;
@@ -25,6 +68,12 @@ class Layer {
         if (this.x2 <= -this.width){ 
             this.x2 = this.width;
         }
+        if (this.x > this.width) {
+            this.x = -this.width + 2;
+        }
+        if (this.x2 > this.width) {
+            this.x2 = -this.width + 2;
+        }
         this.x = Math.floor(this.x - this.speed);
         this.x2 = Math.floor(this.x2 - this.speed);
     }
@@ -35,69 +84,29 @@ class Layer {
 }
 
 
-/*
-
-class Layer {
-    constructor(tilesetImage, tileWidth, tileHeight, speedModifier) {
-        this.x = 0;
-        this.y = 0;
-        this.width = 2400;
-        this.height = 700;
-        this.x2 = this.width;
-        this.tilesetImage = tilesetImage;
-        this.tileWidth = tileWidth;
-        this.tileHeight = tileHeight;
-        this.speedModifier = speedModifier;
-        this.speed = gameSpeed * this.speedModifier;
-    }
-    update() {
-        this.speed = gameSpeed * this.speedModifier;
-        if (this.x <= -this.width){ 
-            this.x = this.width;
-        }
-        if (this.x2 <= -this.width){ 
-            this.x2 = this.width;
-        }
-        this.x = Math.floor(this.x - this.speed);
-        this.x2 = Math.floor(this.x2 - this.speed);
-    }
-    draw() {
-        for(let i = 0; i < this.width; i += this.tileWidth) {
-            for(let j = 0; j < this.height; j += this.tileHeight) {
-                ctx.drawImage(this.tilesetImage, i, j, this.tileWidth, this.tileHeight, this.x + i, this.y + j, this.tileWidth, this.tileHeight);
-                ctx.drawImage(this.tilesetImage, i, j, this.tileWidth, this.tileHeight, this.x2 + i, this.y + j, this.tileWidth, this.tileHeight);
-            }
-        }
-    }
-}
-
-const tilesetImage = new Image();
-tilesetImage.src = './img/tileset.png';
-
-const layer1 = new Layer(tilesetImage, 32, 32, 0.2);
-const layer2 = new Layer(tilesetImage, 32, 32, 0.4);
-const layer3 = new Layer(tilesetImage, 32, 32, 0.6);
-const layer4 = new Layer(tilesetImage, 32, 32, 0.8);
-const layer5 = new Layer(tilesetImage, 32, 32, 1);
-*/
 
 
 const backgroundLayer1 = new Image();
-backgroundLayer1.src = './img/layer-1.png';
+backgroundLayer1.src = './parallax/layer5.png';
 const backgroundLayer2 = new Image();
-backgroundLayer2.src = './img/layer-2.png';
+backgroundLayer2.src = './parallax/layer4.png';
 const backgroundLayer3 = new Image();
-backgroundLayer3.src = './img/layer-3.png';
+backgroundLayer3.src = './parallax/layer3.png';
 const backgroundLayer4 = new Image();
-backgroundLayer4.src = './img/layer-4.png';
+backgroundLayer4.src = './parallax/layer2.png';
 const backgroundLayer5 = new Image();
-backgroundLayer5.src = './img/layer-5.png';
+backgroundLayer5.src = './parallax/layer1.png';
 
 const layer1 = new Layer(backgroundLayer1, 0.2);
 const layer2 = new Layer(backgroundLayer2, 0.4);
 const layer3 = new Layer(backgroundLayer3, 0.6);
 const layer4 = new Layer(backgroundLayer4, 0.8);
 const layer5 = new Layer(backgroundLayer5, 1); 
+
+const playerSprite = new Image();
+playerSprite.src = './img/grib1.png';
+
+const player = new Player(playerSprite, 2);
 
 const slider = document.getElementById('slider');
 slider.value = gameSpeed;
@@ -120,7 +129,18 @@ function animate() {
     object.update();
     object.draw();
   });
+
+  player.update();
+  player.draw();
   requestAnimationFrame(animate);
 }
+
+window.addEventListener('keydown', function(e) {
+    keys[e.code] = true;
+});
+
+window.addEventListener('keyup', function(e) {
+    keys[e.code] = false;
+});
 
 animate();
