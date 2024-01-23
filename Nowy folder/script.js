@@ -35,6 +35,53 @@ class Layer {
 }
 
 
+/*
+
+class Layer {
+    constructor(tilesetImage, tileWidth, tileHeight, speedModifier) {
+        this.x = 0;
+        this.y = 0;
+        this.width = 2400;
+        this.height = 700;
+        this.x2 = this.width;
+        this.tilesetImage = tilesetImage;
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
+        this.speedModifier = speedModifier;
+        this.speed = gameSpeed * this.speedModifier;
+    }
+    update() {
+        this.speed = gameSpeed * this.speedModifier;
+        if (this.x <= -this.width){ 
+            this.x = this.width;
+        }
+        if (this.x2 <= -this.width){ 
+            this.x2 = this.width;
+        }
+        this.x = Math.floor(this.x - this.speed);
+        this.x2 = Math.floor(this.x2 - this.speed);
+    }
+    draw() {
+        for(let i = 0; i < this.width; i += this.tileWidth) {
+            for(let j = 0; j < this.height; j += this.tileHeight) {
+                ctx.drawImage(this.tilesetImage, i, j, this.tileWidth, this.tileHeight, this.x + i, this.y + j, this.tileWidth, this.tileHeight);
+                ctx.drawImage(this.tilesetImage, i, j, this.tileWidth, this.tileHeight, this.x2 + i, this.y + j, this.tileWidth, this.tileHeight);
+            }
+        }
+    }
+}
+
+const tilesetImage = new Image();
+tilesetImage.src = './img/tileset.png';
+
+const layer1 = new Layer(tilesetImage, 32, 32, 0.2);
+const layer2 = new Layer(tilesetImage, 32, 32, 0.4);
+const layer3 = new Layer(tilesetImage, 32, 32, 0.6);
+const layer4 = new Layer(tilesetImage, 32, 32, 0.8);
+const layer5 = new Layer(tilesetImage, 32, 32, 1);
+*/
+
+
 const backgroundLayer1 = new Image();
 backgroundLayer1.src = './img/layer-1.png';
 const backgroundLayer2 = new Image();
