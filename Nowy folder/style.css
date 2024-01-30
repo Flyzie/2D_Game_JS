@@ -3,12 +3,28 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    position: fixed;
     
 }
 
-.main > p{
+
+
+.display1{
     position: absolute;
-    top: 1%;
+    top: 2%;
+    left: 30%;
+}
+
+.display2{
+    position: absolute;
+    top: 7%;
+    left: 30%;
+}
+
+.display3{
+    position: absolute;
+    top: 12%;
     left: 30%;
 }
 
@@ -16,12 +32,23 @@ body{
     position: absolute;
     top: 5%;
     left: 30%;
+}
 
+#slider1{
+    position: absolute;
+    top: 10%;
+    left: 30%;
+}
+
+#slider2{
+    position: absolute;
+    top: 15%;
+    left: 30%;
 }
 
 
 #canvas{
     border: 3px solid #ffffff;
-    width: 800px;
-    height: 700px;
+    width: 1920px;
+    height: 1080px;
 }
